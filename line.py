@@ -1,51 +1,58 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
-import os
 import argparse
 import requests
-from dotenv import load_dotenv
-
-# Load environment variables from .env file
-load_dotenv()
-
-# Get API key from environment variable
-API_KEY = os.getenv('API_KEY')
-
-BASE_URL= 'http://localhost:3000'
+import yaml
 
 # Set the headers for the API request
 headers = {
     'Content-Type': 'application/json',
-    'Authorization': f'Bearer {API_KEY}'
 }
 
-def make_url(path):
-    return BASE_URL + path
-
-def query_type_one():
-    url = make_url('/one')
+def query_type_one(config, extra_arg):
+    url = construct_url(config['BASE_URL'], '/data/one', extra_arg)
     response = requests.get(url, headers=headers)
     data = response.json()
     print(data)
 
-def query_type_two():
-    url = make_url('/data/two')
+def query_type_two(config, extra_arg):
+    url = construct_url(config['BASE_URL'], '/data/two', extra_arg)
     response = requests.get(url, headers=headers)
     data = response.json()
     print(data)
+
+def construct_url(base_url, endpoint, extra_arg):
+    return base_url + endpoint + '/' + extra_arg
+
+def get_query_functions():
+    functions = {name: func for name, func in globals().items() if callable(func) and name.startswith('query_type_')}
+    return functions
 
 def main():
     parser = argparse.ArgumentParser(description='Perform API queries.')
-    parser.add_argument('query_type', help='The type of query to perform (one, two)')
+    parser.add_argument('query_type', nargs='?', help='The type of query to perform')
+    parser.add_argument('extra_arg', nargs='?', help='An extra argument for the query')
 
     args = parser.parse_args()
 
-    if args.query_type == 'one':
-        query_type_one()
-    elif args.query_type == 'two':
-        query_type_two()
+    # Load configuration from YAML file
+    with open('config.yaml') as f:
+        config = yaml.safe_load(f)
+
+    query_functions = get_query_functions()
+
+    if args.query_type:
+        query_func = query_functions.get(f'query_type_{args.query_type}')
+        if query_func and args.extra_arg:
+            query_func(config, args.extra_arg)
+        elif not query_func:
+            print(f'Invalid query type: {args.query_type}')
+        else:
+            print(f'Missing extra argument for query type: {args.query_type}')
     else:
-        print(f'Invalid query type: {args.query_type}')
+        print('Available query types:')
+        for name in query_functions:
+            print(name.replace('query_type_', ''))
 
 if __name__ == '__main__':
     main()

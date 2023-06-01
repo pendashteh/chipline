@@ -3,25 +3,23 @@
 import argparse
 import requests
 import yaml
+import json
 
 # Set the headers for the API request
 headers = {
     'Content-Type': 'application/json',
 }
 
-def query_type_one(config, extra_arg):
-    url = construct_url(config['BASE_URL'], '/data/one', extra_arg)
+def query_type_main(config, extra_arg):
+    url = construct_url(config['BASE_URL'], extra_arg)
     response = requests.get(url, headers=headers)
-    data = response.json()
-    print(data)
+    try:
+        data = response.json()
+        print(data)
+    except json.JSONDecodeError:
+        print(f"Received message: {response.text}")
 
-def query_type_two(config, extra_arg):
-    url = construct_url(config['BASE_URL'], '/data/two', extra_arg)
-    response = requests.get(url, headers=headers)
-    data = response.json()
-    print(data)
-
-def construct_url(base_url, endpoint, extra_arg):
+def construct_url(base_url, endpoint, extra_arg=''):
     return base_url + endpoint + '/' + extra_arg
 
 def get_query_functions():

@@ -7,4 +7,14 @@ ask__ () {
   python openai.chat.py "$prompt"
 }
 
+console__ () {
+  while true; do
+    read -rp "> " input
+    if [[ -z "$input" ]]; then
+      break
+    fi
+    ask__ $input
+  done
+}
+
 . undies

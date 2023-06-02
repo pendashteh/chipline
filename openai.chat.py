@@ -3,7 +3,7 @@ import sys
 
 prompt = sys.argv[1]
 
-openai.api_key_path = 'openai_api_key'
+openai.api_key_path = 'key'
 
 response = openai.Completion.create(
   model="text-davinci-003",

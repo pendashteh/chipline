@@ -24,5 +24,4 @@ response = proxy_function(openai.Completion.create,
 
 text_values = [choice.get('text') for choice in response.get('choices', [])]
 
-print(text_values)
-
+print('\n'.join(text_values)+'\n')

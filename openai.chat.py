@@ -1,12 +1,13 @@
 import openai
 import sys
 import json
+from proxy import proxy_function
 
 prompt = sys.argv[1]
 
 openai.api_key_path = 'key'
 
-response = openai.Completion.create(
+response = proxy_function(openai.Completion.create,
   model="text-davinci-003",
   prompt=f"""
   The following is a conversation with an AI assistant. The assistant is helpful, creative, clever, and very friendly.

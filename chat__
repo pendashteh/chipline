@@ -1,0 +1,10 @@
+#! /usr/bin/env bash
+
+ask__ () {
+  local prompt=$@
+  echo Asking $prompt
+  echo Answer:
+  python openai.chat.py "$prompt"
+}
+
+. undies

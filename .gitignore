@@ -1,3 +1,4 @@
 key
 logs/
 __pycache__/
+command_history.txt

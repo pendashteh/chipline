@@ -1,5 +1,6 @@
 import openai
 import sys
+import json
 
 prompt = sys.argv[1]
 
@@ -20,4 +21,7 @@ response = openai.Completion.create(
   stop=[" Human:", " AI:"]
 )
 
-print(response)
+text_values = [choice.get('text') for choice in response.get('choices', [])]
+
+print(text_values)
+

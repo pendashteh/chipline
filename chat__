@@ -1,26 +1,20 @@
 #! /usr/bin/env bash
 
-ask__help='@arg prompt @does send to openai api'
-ask__ () {
-  local prompt=$@
-  python openai.chat.py "$prompt"
-}
-
 console__help='@does open a console for prompting'
 console__() {
-    # Initialize command history file
-    local HISTFILE="command_history.txt"
-    touch $HISTFILE
-    while true; do
-        # Read the user input with command history functionality provided by rlwrap
-        cmd=$(rlwrap -H $HISTFILE -S "> " -o cat)
-        if [ -z "$cmd" ]; then
-            # Exit if the command is empty
-            break
-        fi
-        # Run the command and store the output
-        ask__ "$cmd"
-    done
+  # Initialize command history file
+  local HISTFILE="command_history.txt"
+  touch $HISTFILE
+  while true; do
+      # Read the user input with command history functionality provided by rlwrap
+      cmd=$(rlwrap -H $HISTFILE -S "> " -o cat)
+      if [ -z "$cmd" ]; then
+          # Exit if the command is empty
+          break
+      fi
+      # Run the command and store the output
+      python openai.chat.py "$cmd"
+  done
 }
 
-. undies
+console__

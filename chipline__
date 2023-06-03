@@ -1,0 +1,22 @@
+#! /usr/bin/env bash
+
+prompt__help='@does open a console for prompting'
+prompt__() {
+  local module=$1
+  shift
+  local prompt=$@
+  python chipline_openai.py $module "$prompt"
+}
+
+console__ () {
+  local module=$1
+  shift
+  local prompt=$@
+  console "$prompt"
+}
+
+list__ () {
+  find modules -name '*.py' -exec basename {} .py \;
+}
+
+. undies

@@ -3,7 +3,7 @@
 console__help='@does open a console for prompting'
 console__() {
   # Initialize command history file
-  local HISTFILE="command_history.txt"
+  local HISTFILE="prompt_history.txt"
   touch $HISTFILE
   while true; do
       # Read the user input with command history functionality provided by rlwrap

@@ -13,9 +13,23 @@ $ chmod +x ./console
 ```
 
 ## Run
+### Console
 ```
 $ cd /path/to/chipline
 $ ./console
 > 
 ```
 Now you can prompt via the console.
+
+### Direct python call
+```
+$ python chipline_openai.py [module] [prompt]
+```
+Available modules:
+- chat
+- grammar
+
+**Example**:
+```
+$ python chipline_openai.py chat What is the oldest Empire?
+```

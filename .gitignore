@@ -1,4 +1,4 @@
-key
+key/openai.api_key
 logs/
 __pycache__/
 command_history.txt

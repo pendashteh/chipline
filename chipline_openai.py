@@ -4,7 +4,7 @@ import importlib
 from proxy import proxy_function
 
 prompt = sys.argv[2]
-openai.api_key_path = 'key'
+openai.api_key_path = 'key/openai.api_key'
 
 def create(**kwargs):
     return proxy_function(openai.Completion.create, **kwargs)

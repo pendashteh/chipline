@@ -1,5 +1,17 @@
 #! /usr/bin/env bash
 
+__main__ () {
+  init__ && console__
+}
+
+init__ () {
+  if [ ! -e key/openai.api_key ]; then
+    echo No key found.
+    echo @see key/README.md
+    return 1
+  fi
+}
+
 console__help='@does open a console for prompting'
 console__() {
   # Initialize command history file
@@ -13,8 +25,8 @@ console__() {
           break
       fi
       # Run the command and store the output
-      python chipline_openai.py chat "$cmd"
+      python3 chipline_openai.py chat "$cmd"
   done
 }
 
-console__
+__main__ $@

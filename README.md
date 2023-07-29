@@ -1,6 +1,15 @@
 # chipline
 Console for ChatGPT
 
+## Using Docker
+If you are using Dox, simply:
+1. Clone the repo
+2. Place the key inside ./key directory
+3. dox build && dox run
+
+Otherwise, you may pass OPENAI_API_KEY or OPENAI_API_KEY_PATH to `docker run`
+e.g. `docker run -e OPENAI_API_KEY=s-267e2...287 IMAGE_NAME`
+
 ## Installation
 1. Install python requirements (and obviousely python3!)
 ```bash

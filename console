@@ -1,12 +1,18 @@
 #! /usr/bin/env bash
 
+OPENAI_API_KEY_PATH=${OPENAI_API_KEY_PATH:-'key/openai.api_key'}
+
 __main__ () {
   init__ && console__
 }
 
 init__ () {
-  if [ ! -e key/openai.api_key ]; then
-    echo No key found.
+  if [ "${OPENAI_API_KEY}" ]; then
+    return
+  fi
+  if [ ! -e "${OPENAI_API_KEY_PATH}" ]; then
+    echo No key set or key path found.
+    echo Given api key path: $OPENAI_API_KEY_PATH
     echo @see key/README.md
     return 1
   fi

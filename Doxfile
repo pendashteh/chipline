@@ -1,0 +1,1 @@
+dox_variables["OPENAI_API_KEY"]=$(cat key/openai.api_key)

@@ -12,4 +12,3 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 CMD ["/app/console"]
-
